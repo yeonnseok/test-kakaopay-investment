@@ -10,21 +10,17 @@ class BigDecimalRoundingConverter : AttributeConverter<BigDecimal, String> {
 
     companion object {
         const val SCALE_ZERO = 0
-        val BANKERS_ROUNDING_MODE = RoundingMode.HALF_EVEN
+        val ROUNDING_MODE = RoundingMode.HALF_EVEN
     }
 
-    override fun convertToDatabaseColumn(attribute: BigDecimal?): String? {
-        return when (attribute?.scale()) {
-            null -> null
+    override fun convertToDatabaseColumn(attribute: BigDecimal): String {
+        return when (attribute.scale()) {
             SCALE_ZERO -> attribute.toString()
-            else -> attribute.setScale(SCALE_ZERO, BANKERS_ROUNDING_MODE).toString()
+            else -> attribute.setScale(SCALE_ZERO, ROUNDING_MODE).toString()
         }
     }
 
-    override fun convertToEntityAttribute(dbData: String?): BigDecimal? {
-        return when (dbData) {
-            null -> null
-            else -> BigDecimal(dbData)
-        }
+    override fun convertToEntityAttribute(dbData: String): BigDecimal {
+        return BigDecimal(dbData)
     }
 }

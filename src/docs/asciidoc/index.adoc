@@ -30,3 +30,10 @@ operation::products/create[snippets='http-request,http-response,request-headers,
 [[resources-product-list]]
 === 투자 상품 목록 조회
 operation::products/find-list[snippets='http-request,http-response,request-headers,response-fields']
+
+[[resources-investment]]
+== 투자 관리
+
+[[resources-investment-create]]
+=== 투자 하기
+operation::investments/create[snippets='http-request,http-response,request-headers,request-fields,response-fields']

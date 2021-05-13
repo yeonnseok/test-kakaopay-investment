@@ -14,7 +14,6 @@ import org.springframework.http.MediaType
 import org.springframework.restdocs.headers.HeaderDocumentation.headerWithName
 import org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
-import org.springframework.restdocs.payload.PayloadDocumentation
 import org.springframework.restdocs.payload.PayloadDocumentation.*
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -40,7 +39,7 @@ class ProductControllerTest : ControllerTest() {
                 role = RoleType.ROLE_USER
             )
         )
-        userId = user.id!!
+        userId = user.id
     }
 
     @Test
@@ -102,7 +101,7 @@ class ProductControllerTest : ControllerTest() {
                 totalInvestingAmount = BigDecimal(5000000),
                 currentInvestingAmount = BigDecimal(5000000),
                 investorCount = 300,
-                investingStatus = InvestingStatus.COMPLETED,
+                investingStatus = InvestingStatus.SOLD_OUT,
                 startedAt = LocalDateTime.of(2021, 3, 1, 0, 0, 0),
                 finishedAt = LocalDateTime.of(2021, 6, 15, 0, 0, 0),
             ),
