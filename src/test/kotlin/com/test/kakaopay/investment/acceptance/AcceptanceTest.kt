@@ -1,7 +1,10 @@
 package com.test.kakaopay.investment.acceptance
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.test.kakaopay.investment.common.ApiResponse
+import com.test.kakaopay.investment.product.domain.dto.ProductResponse
 import com.test.kakaopay.investment.user.domain.dto.UserCreateRequest
 import com.test.kakaopay.investment.user.domain.dto.UserCreateResponse
 import io.restassured.RestAssured
@@ -13,6 +16,7 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.context.jdbc.Sql
+import java.lang.reflect.Type
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql("/truncate.sql")
@@ -36,13 +40,12 @@ class AcceptanceTest {
             RestAssured.port = port!!
         }
 
-        userId = createUser()
+        val request = UserCreateRequest("kakao")
+        userId = createUser(request)
     }
 
-    private fun createUser(): Long {
-        val request = UserCreateRequest("kakao")
-
-        val response = post("/api/v1/users", request, UserCreateResponse::class.java) as UserCreateResponse
+    protected fun createUser(request: UserCreateRequest): Long {
+        val response = post("/api/v1/users", userId, request, UserCreateResponse::class.java) as UserCreateResponse
 
         return response.userId
     }
@@ -52,8 +55,9 @@ class AcceptanceTest {
         return objectMapper.readValue(jsonData, classType)
     }
 
-    protected fun post(path: String, request: Any, classType: Class<*>): Any {
+    protected fun post(path: String, userId: Long?, request: Any, classType: Class<*>): Any {
         val apiResponse = given().
+                    header("X-USER-ID", userId ?: "").
                     body(request).
                     contentType(MediaType.APPLICATION_JSON_VALUE).
                     accept(MediaType.APPLICATION_JSON_VALUE).
@@ -65,5 +69,17 @@ class AcceptanceTest {
                     contentType(MediaType.APPLICATION_JSON_VALUE).
                     extract().`as`(ApiResponse::class.java)
         return getResponseData(apiResponse.data, classType)
+    }
+
+    protected fun getList(path: String, type: Type): Any {
+        val apiResponse = given()
+                    .header("X-USER-ID", userId ?: "").
+            `when`().
+                    get(path).
+            then().
+                    log().all().
+                    statusCode(HttpStatus.OK.value()).
+                    extract().`as`(ApiResponse::class.java)
+        return Gson().fromJson(objectMapper.writeValueAsString(apiResponse.data), type)
     }
 }

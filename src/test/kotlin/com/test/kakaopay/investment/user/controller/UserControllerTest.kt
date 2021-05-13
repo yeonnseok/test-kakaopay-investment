@@ -1,6 +1,7 @@
 package com.test.kakaopay.investment.user.controller
 
 import com.test.kakaopay.investment.restdocs.ControllerTest
+import com.test.kakaopay.investment.user.domain.RoleType
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import org.springframework.restdocs.headers.HeaderDocumentation.headerWithName
@@ -18,7 +19,8 @@ internal class UserControllerTest : ControllerTest() {
     fun `유저 생성 API`() {
         // given
         val body = mapOf(
-            "name" to "kakao"
+            "name" to "kakao",
+            "role" to RoleType.ROLE_USER
         )
 
         // when
@@ -39,8 +41,8 @@ internal class UserControllerTest : ControllerTest() {
                         headerWithName("Content-Type").description("데이터 타입")
                     ),
                     requestFields(
-                        fieldWithPath("name")
-                            .description("유저 이름")
+                        fieldWithPath("name").description("유저 이름"),
+                        fieldWithPath("role").optional().description("권한")
                     ),
                     PayloadDocumentation.responseFields(
                         fieldWithPath("result").description("응답 결과"),

@@ -1,6 +1,7 @@
 package com.test.kakaopay.investment.user.controller
 
 import com.test.kakaopay.investment.common.ApiResponse
+import com.test.kakaopay.investment.common.interceptor.NoValidate
 import com.test.kakaopay.investment.user.domain.UserService
 import com.test.kakaopay.investment.user.domain.dto.UserCreateRequest
 import org.springframework.http.HttpStatus
@@ -16,6 +17,7 @@ import java.net.URI
 class UserController(
     private val userService: UserService
 ) {
+    @NoValidate
     @PostMapping
     fun create(@RequestBody request: UserCreateRequest): ResponseEntity<ApiResponse> {
         val response = userService.create(request)
