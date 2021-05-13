@@ -39,6 +39,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.kotlintest:kotlintest-runner-junit5:3.3.2")
 	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+	testImplementation("io.rest-assured:rest-assured:3.3.0")
 }
 
 tasks.withType<KotlinCompile> {
@@ -66,12 +67,11 @@ tasks.jacocoTestCoverageVerification {
 	violationRules {
 		rule {
 			enabled = true
-			element = "CLASS"
 
 			limit {
 				counter = "INSTRUCTION"
 				value = "COVEREDRATIO"
-				minimum = "0.90".toBigDecimal()
+				minimum = "0.85".toBigDecimal()
 			}
 		}
 	}
