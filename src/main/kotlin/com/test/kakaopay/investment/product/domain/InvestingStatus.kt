@@ -4,5 +4,5 @@ enum class InvestingStatus(
     val korean: String
 ) {
     PROCEEDING("모집 진행중"),
-    COMPLETED("모집 완료");
+    SOLD_OUT("모집 완료");
 }
