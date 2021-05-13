@@ -23,7 +23,7 @@ internal class UserServiceTest {
     @Test
     fun `유저 생성 실패`() {
         // given
-        userRepository.save(User(name = "kakao"))
+        userRepository.save(User(name = "kakao", role = RoleType.ROLE_USER))
         val request = UserCreateRequest("kakao")
 
         // when

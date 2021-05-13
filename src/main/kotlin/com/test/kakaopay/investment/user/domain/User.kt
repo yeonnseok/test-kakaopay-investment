@@ -11,5 +11,9 @@ class User(
     var id: Long? = null,
 
     @Column(name = "name", nullable = false)
-    var name: String
+    var name: String,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    var role: RoleType
 ): BaseEntity()

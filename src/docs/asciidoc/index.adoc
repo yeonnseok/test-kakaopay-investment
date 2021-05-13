@@ -13,9 +13,16 @@ endif::[]
 [[resources]]
 = Resources
 
-[[resources-auth]]
+[[resources-user]]
 == 유저 관리
 
-[[resources-auth-signup]]
+[[resources-user-create]]
 === 유저 생성
 operation::users/create[snippets='http-request,http-response,request-headers,request-fields,response-fields']
+
+[[resources-product]]
+== 투자 상품 관리
+
+[[resources-product-create]]
+=== 투자 상품 생성
+operation::products/create[snippets='http-request,http-response,request-headers,request-fields,response-fields']

@@ -36,13 +36,12 @@ class AcceptanceTest {
             RestAssured.port = port!!
         }
 
-        userId = createUser()
+        val request = UserCreateRequest("kakao")
+        userId = createUser(request)
     }
 
-    private fun createUser(): Long {
-        val request = UserCreateRequest("kakao")
-
-        val response = post("/api/v1/users", request, UserCreateResponse::class.java) as UserCreateResponse
+    protected fun createUser(request: UserCreateRequest): Long {
+        val response = post("/api/v1/users", userId, request, UserCreateResponse::class.java) as UserCreateResponse
 
         return response.userId
     }
@@ -52,8 +51,9 @@ class AcceptanceTest {
         return objectMapper.readValue(jsonData, classType)
     }
 
-    protected fun post(path: String, request: Any, classType: Class<*>): Any {
+    protected fun post(path: String, userId: Long?, request: Any, classType: Class<*>): Any {
         val apiResponse = given().
+                    header("X-USER-ID", userId ?: "").
                     body(request).
                     contentType(MediaType.APPLICATION_JSON_VALUE).
                     accept(MediaType.APPLICATION_JSON_VALUE).
