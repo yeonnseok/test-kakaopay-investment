@@ -6,6 +6,7 @@ import com.test.kakaopay.investment.exceptions.ProductAlreadySoldOutException
 import com.test.kakaopay.investment.exceptions.ProductNotFoundException
 import com.test.kakaopay.investment.investments.domain.dto.InvestSuccessResponse
 import com.test.kakaopay.investment.investments.domain.dto.InvestmentRequest
+import com.test.kakaopay.investment.investments.domain.dto.InvestmentResponse
 import com.test.kakaopay.investment.product.domain.InvestingStatus
 import com.test.kakaopay.investment.product.domain.Product
 import com.test.kakaopay.investment.product.domain.ProductRepository
@@ -66,5 +67,14 @@ class InvestmentService(
         if (product.currentInvestingAmount == product.totalInvestingAmount) {
             product.investingStatus = InvestingStatus.SOLD_OUT
         }
+    }
+
+    fun findByUserId(userId: Long): List<InvestmentResponse> {
+        return investmentRepository.findByUserId(userId)
+            .map {
+                val product = productRepository.findById(it.productId)
+                    .orElseThrow{ ProductNotFoundException() }
+                InvestmentResponse.of(it, product)
+            }
     }
 }

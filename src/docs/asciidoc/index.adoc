@@ -37,3 +37,7 @@ operation::products/find-list[snippets='http-request,http-response,request-heade
 [[resources-investment-create]]
 === 투자 하기
 operation::investments/create[snippets='http-request,http-response,request-headers,request-fields,response-fields']
+
+[[resources-investment-my-list]]
+=== 내 투자 목록 조회
+operation::investments/my-list[snippets='http-request,http-response,request-headers,response-fields']

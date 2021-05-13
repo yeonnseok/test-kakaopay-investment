@@ -14,10 +14,12 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.jdbc.Sql
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @SpringBootTest
+@Sql("/truncate.sql")
 internal class InvestmentServiceTest {
 
     @Autowired
@@ -25,6 +27,9 @@ internal class InvestmentServiceTest {
 
     @Autowired
     private lateinit var productRepository: ProductRepository
+
+    @Autowired
+    private lateinit var investmentRepository: InvestmentRepository
 
     private var productId: Long? = null
 
@@ -139,5 +144,35 @@ internal class InvestmentServiceTest {
         product.investorCount shouldBe 11
         product.currentInvestingAmount shouldBe BigDecimal(5000000)
         product.investingStatus shouldBe InvestingStatus.SOLD_OUT
+    }
+
+    @Test
+    fun `나의 투자 목록 조회`() {
+        // given
+        investmentRepository.saveAll(listOf(
+            Investment(
+                userId = 1,
+                productId = productId!!,
+                investingAmount = BigDecimal(50000)
+            ),
+            Investment(
+                userId = 1,
+                productId = productId!!,
+                investingAmount = BigDecimal(100000)
+            ),
+            Investment(
+                userId = 2,
+                productId = productId!!,
+                investingAmount = BigDecimal(150000)
+            )
+        ))
+
+        // when
+        val responses = sut.findByUserId(1)
+
+        // then
+        responses.size shouldBe 2
+        responses[0].investingAmount shouldBe BigDecimal(50000)
+        responses[1].investingAmount shouldBe BigDecimal(100000)
     }
 }

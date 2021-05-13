@@ -2,9 +2,7 @@ package com.test.kakaopay.investment.acceptance
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.test.kakaopay.investment.common.ApiResponse
-import com.test.kakaopay.investment.product.domain.dto.ProductResponse
 import com.test.kakaopay.investment.user.domain.dto.UserCreateRequest
 import com.test.kakaopay.investment.user.domain.dto.UserCreateResponse
 import io.restassured.RestAssured

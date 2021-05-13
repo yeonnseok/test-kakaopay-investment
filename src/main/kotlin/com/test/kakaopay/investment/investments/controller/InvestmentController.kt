@@ -5,10 +5,7 @@ import com.test.kakaopay.investment.investments.domain.InvestmentService
 import com.test.kakaopay.investment.investments.domain.dto.InvestmentRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.net.URI
 import javax.servlet.http.HttpServletRequest
 
@@ -31,5 +28,12 @@ class InvestmentController(
                     data = response
                 )
             )
+    }
+
+    @GetMapping
+    fun myInvestment(servletRequest: HttpServletRequest): ResponseEntity<ApiResponse> {
+        val userId = servletRequest.getHeader("X-USER-ID").toLong()
+        val responses = investmentService.findByUserId(userId)
+        return ResponseEntity.ok(ApiResponse(data = responses))
     }
 }
