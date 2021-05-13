@@ -5,10 +5,7 @@ import com.test.kakaopay.investment.product.domain.ProductService
 import com.test.kakaopay.investment.product.domain.dto.ProductCreateRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.net.URI
 import javax.servlet.http.HttpServletRequest
 
@@ -18,7 +15,10 @@ class ProductController(
     private val productService: ProductService
 ) {
     @PostMapping
-    fun create(@RequestBody request: ProductCreateRequest, servletRequest: HttpServletRequest): ResponseEntity<ApiResponse> {
+    fun create(
+        @RequestBody request: ProductCreateRequest,
+        servletRequest: HttpServletRequest
+    ): ResponseEntity<ApiResponse> {
         val userId = servletRequest.getHeader("X-USER-ID").toLong()
         val response = productService.create(request, userId)
         return ResponseEntity.created(URI("/api/v1/products/${response.productId}"))
@@ -27,6 +27,15 @@ class ProductController(
                     statusCode = HttpStatus.CREATED.value(),
                     data = response
                 )
+            )
+    }
+
+    @GetMapping
+    fun findList(): ResponseEntity<ApiResponse> {
+        val response = productService.findList()
+        return ResponseEntity
+            .ok(
+                ApiResponse(data = response)
             )
     }
 }

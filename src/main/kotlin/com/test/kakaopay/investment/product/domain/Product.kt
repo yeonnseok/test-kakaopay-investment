@@ -15,10 +15,10 @@ class Product(
     @Column(name = "title", nullable = false)
     var title: String,
 
-    @Column(name = "total_investing_amount", nullable = false)
+    @Column(name = "total_investing_amount", nullable = false, scale = 0)
     var totalInvestingAmount: BigDecimal,
 
-    @Column(name = "current_investing_amount", nullable = false)
+    @Column(name = "current_investing_amount", nullable = false, scale = 0)
     var currentInvestingAmount: BigDecimal = BigDecimal.ZERO,
 
     @Column(name = "investor_count", nullable = false)

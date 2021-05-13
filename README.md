@@ -5,15 +5,15 @@
 - [x] 요청한 사용자 식별값은 숫자 형태이며 "X-USER-ID" 라는 HTTP Header 로 전달된다.
 
 ### 전체 투자상품 조회
-- [ ] 투자 상품은 다음 내용을 포함한다.
- - [ ] 상품 ID(product_id)
- - [ ] 상품 제목(title)
- - [ ] 총 모집금액(total_investing_amount)
- - [ ] 현재 모집금액(current_investing_amount)
- - [ ] 투자자 수(investor_count)
- - [ ] 투자 모집 상태(모집중, 모집 완료)(investing_status)
- - [ ] 상품 모집기간 (stated_at, finished_at)
-- [ ] 상품 모집기간 (started_at, finished_at) 내의 상품만 응답한다.
+- [x] 투자 상품은 다음 내용을 포함한다.
+ - [x] 상품 ID(product_id)
+ - [x] 상품 제목(title)
+ - [x] 총 모집 금액(total_investing_amount)
+ - [x] 현재 모집된 금액(current_investing_amount)
+ - [x] 투자자 수(investor_count)
+ - [x] 투자 모집 상태(모집중, 모집 완료)(investing_status)
+ - [x] 상품 모집기간 (stated_at, finished_at)
+- [x] 상품 모집기간 (started_at, finished_at) 내의 상품만 응답한다.
 
 ### 투자하기
 - [ ] 투자 모집 상태가 '모집중' 인 상품만 투자할 수 있다.

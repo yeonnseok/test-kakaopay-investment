@@ -4,10 +4,12 @@ import com.test.kakaopay.investment.exceptions.AuthorizationException
 import com.test.kakaopay.investment.exceptions.UserNotFoundException
 import com.test.kakaopay.investment.product.domain.dto.ProductCreateRequest
 import com.test.kakaopay.investment.product.domain.dto.ProductCreateResponse
+import com.test.kakaopay.investment.product.domain.dto.ProductResponse
 import com.test.kakaopay.investment.user.domain.RoleType
 import com.test.kakaopay.investment.user.domain.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
 
 @Service
 @Transactional(readOnly = true)
@@ -29,5 +31,11 @@ class ProductService(
         if (user.role == RoleType.ROLE_USER) {
             throw AuthorizationException()
         }
+    }
+
+    fun findList(): List<ProductResponse> {
+        val now = LocalDateTime.now()
+        return productRepository.findByStartedAtLessThanEqualAndFinishedAtGreaterThanEqual(now, now)
+            .map { ProductResponse.of(it) }
     }
 }
