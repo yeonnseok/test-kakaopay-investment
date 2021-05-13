@@ -1,13 +1,14 @@
-package com.test.kakaopay.investmest
+package com.test.kakaopay.investment
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class InvestmestApplicationTests {
+class InvestmentApplicationTests {
 
 	@Test
 	fun contextLoads() {
+		main(arrayOf())
 	}
 
 }

@@ -1,11 +1,11 @@
-package com.test.kakaopay.investmest
+package com.test.kakaopay.investment
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class InvestmestApplication
+class InvestmentApplication
 
 fun main(args: Array<String>) {
-	runApplication<InvestmestApplication>(*args)
+	runApplication<InvestmentApplication>(*args)
 }
