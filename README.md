@@ -1,5 +1,19 @@
 # (사전과제) 카카오페이 신용/부동산 투자 API
 
+## API 문서 링크 (Rest Docs)
+👉  [index.html](https://htmlpreview.github.io/?https://github.com/yeonnseok/test-kakaopay-investment/blob/develop/src/main/resources/static/docs/index.html)
+
+## 도메인 요약
+- 엔티티 다이어그램
+
+![image](https://user-images.githubusercontent.com/42382027/118157141-27ed1200-b455-11eb-9b06-0a273f2921db.png)
+
+
+## 테스트 커버리지
+- Jacoco test coverage 85% 이상 (total instruction)
+
+---
+
 ## 요구사항
 ### 일반
 - [x] 요청한 사용자 식별값은 숫자 형태이며 "X-USER-ID" 라는 HTTP Header 로 전달된다.
