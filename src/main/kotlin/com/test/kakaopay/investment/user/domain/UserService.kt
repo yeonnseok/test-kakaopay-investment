@@ -1,6 +1,7 @@
 package com.test.kakaopay.investment.user.domain
 
 import com.test.kakaopay.investment.exceptions.UserNameDuplicatedException
+import com.test.kakaopay.investment.exceptions.UserNotFoundException
 import com.test.kakaopay.investment.user.domain.dto.UserCreateRequest
 import com.test.kakaopay.investment.user.domain.dto.UserCreateResponse
 import org.springframework.stereotype.Service
@@ -25,5 +26,10 @@ class UserService(
         if (userRepository.existsByName(name)) {
             throw UserNameDuplicatedException()
         }
+    }
+
+    fun findById(userId: Long): User {
+        return userRepository.findById(userId)
+            .orElseThrow { UserNotFoundException() }
     }
 }
