@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
 class ExceptionHandlers {
-
     @ExceptionHandler(BadRequestException::class)
     fun badRequestErrorHandler(e: BadRequestException): ResponseEntity<ApiResponse> {
         val error = ApiResponse(
