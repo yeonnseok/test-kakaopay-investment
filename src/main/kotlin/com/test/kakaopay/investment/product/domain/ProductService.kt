@@ -7,6 +7,7 @@ import com.test.kakaopay.investment.product.domain.dto.ProductCreateResponse
 import com.test.kakaopay.investment.product.domain.dto.ProductResponse
 import com.test.kakaopay.investment.user.domain.RoleType
 import com.test.kakaopay.investment.user.domain.UserRepository
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -17,6 +18,7 @@ class ProductService(
     private val userRepository: UserRepository,
     private val productRepository: ProductRepository
 ) {
+    @Transactional
     fun create(request: ProductCreateRequest, userId: Long): ProductCreateResponse {
         validateUser(userId)
 
@@ -33,6 +35,7 @@ class ProductService(
         }
     }
 
+    @Cacheable(value = arrayOf("productResponses"))
     fun findList(): List<ProductResponse> {
         val now = LocalDateTime.now()
         return productRepository.findByStartedAtLessThanEqualAndFinishedAtGreaterThanEqual(now, now)
