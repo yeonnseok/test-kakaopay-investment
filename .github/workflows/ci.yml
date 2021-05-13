@@ -6,7 +6,7 @@ name: CI with Gradle
 on:
   push:
     branches: 
-      - main
+      - master
       - develop
       - 'feat/**'
       - 'fix/**'
@@ -14,7 +14,7 @@ on:
       - 'chore/**'
   pull_request:
     branches: 
-      - main
+      - master
       - develop
       - 'feat/**'
       - 'fix/**'
