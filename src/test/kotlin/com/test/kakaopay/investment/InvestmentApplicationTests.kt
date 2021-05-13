@@ -8,6 +8,7 @@ class InvestmentApplicationTests {
 
 	@Test
 	fun contextLoads() {
+		main(arrayOf())
 	}
 
 }

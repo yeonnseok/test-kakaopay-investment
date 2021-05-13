@@ -7,6 +7,11 @@ plugins {
 	kotlin("jvm") version "1.4.32"
 	kotlin("plugin.spring") version "1.4.32"
 	kotlin("plugin.jpa") version "1.4.32"
+	jacoco
+}
+
+jacoco {
+	toolVersion = "0.8.5"
 }
 
 group = "com.test.kakaopay"
@@ -32,6 +37,7 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.kotlintest:kotlintest-runner-junit5:3.3.2")
 	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 }
 
@@ -44,6 +50,31 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	finalizedBy("jacocoTestReport")
+}
+
+tasks.jacocoTestReport {
+	reports {
+		html.isEnabled = true
+		xml.isEnabled = false
+		csv.isEnabled = false
+	}
+	finalizedBy("jacocoTestCoverageVerification")
+}
+
+tasks.jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			enabled = true
+			element = "CLASS"
+
+			limit {
+				counter = "INSTRUCTION"
+				value = "COVEREDRATIO"
+				minimum = "0.90".toBigDecimal()
+			}
+		}
+	}
 }
 
 val snippetsDir = file("build/generated-snippets")
